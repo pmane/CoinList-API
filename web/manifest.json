@@ -1,6 +1,6 @@
 {
-    "name": "coin_list_a_p_i",
-    "short_name": "coin_list_a_p_i",
+    "name": "Flutter-CoinList-API",
+    "short_name": "Flutter-CoinList-API",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

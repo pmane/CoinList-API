@@ -1,4 +1,4 @@
-# coin_list_a_p_i
+# Flutter-CoinList-API
 
 A new Flutter project.
 

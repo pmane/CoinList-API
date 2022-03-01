@@ -23,12 +23,12 @@ class _ListPageWidgetState extends State<ListPageWidget> {
         automaticallyImplyLeading: false,
         title: Text(
           'CoinList',
-          style: FlutterFlowTheme.title1.override(
-            fontFamily: 'Lexend Deca',
-            color: Colors.white,
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-          ),
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: Colors.white,
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+              ),
         ),
         actions: [],
         centerTitle: false,
@@ -40,7 +40,7 @@ class _ListPageWidgetState extends State<ListPageWidget> {
         children: [
           Expanded(
             child: FutureBuilder<ApiCallResponse>(
-              future: getListedCryptoCall(),
+              future: GetListedCryptoCall.call(),
               builder: (context, snapshot) {
                 // Customize what your widget looks like when it's loading.
                 if (!snapshot.hasData) {
@@ -49,7 +49,7 @@ class _ListPageWidgetState extends State<ListPageWidget> {
                       width: 50,
                       height: 50,
                       child: CircularProgressIndicator(
-                        color: FlutterFlowTheme.primaryColor,
+                        color: FlutterFlowTheme.of(context).primaryColor,
                       ),
                     ),
                   );
@@ -58,9 +58,9 @@ class _ListPageWidgetState extends State<ListPageWidget> {
                 return Builder(
                   builder: (context) {
                     final data = getJsonField(
-                                listViewGetListedCryptoResponse.jsonBody,
-                                r'''$.data''')
-                            ?.toList() ??
+                          (listViewGetListedCryptoResponse?.jsonBody ?? ''),
+                          r'''$.data''',
+                        )?.toList() ??
                         [];
                     return ListView.builder(
                       padding: EdgeInsets.zero,
@@ -72,8 +72,11 @@ class _ListPageWidgetState extends State<ListPageWidget> {
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           color: Color(0xFFF5F5F5),
                           child: Text(
-                            getJsonField(dataItem, r'''$.name''').toString(),
-                            style: FlutterFlowTheme.bodyText1,
+                            getJsonField(
+                              dataItem,
+                              r'''$.name''',
+                            ).toString(),
+                            style: FlutterFlowTheme.of(context).bodyText1,
                           ),
                         );
                       },
